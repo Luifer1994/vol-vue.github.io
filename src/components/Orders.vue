@@ -9,7 +9,7 @@
     "
   >
     <div class="d-block mb-4 mb-md-0">
-      <h2 class="h4">Todas las ordenes</h2>
+      <h2 class="h4">Todos los usuarios</h2>
     </div>
     <div class="btn-toolbar mb-2 mb-md-0">
       <a
@@ -30,7 +30,7 @@
             d="M12 6v6m0 0v6m0-6h6m-6 0H6"
           ></path>
         </svg>
-        Nueva Orden
+        Nuev Usuario
       </a>
       <div class="btn-group ms-2 ms-lg-3">
         <button type="button" class="btn btn-sm btn-outline-gray-600">
@@ -110,10 +110,7 @@
           </button>
           <div class="dropdown-menu dropdown-menu-xs dropdown-menu-end pb-0">
             <span class="small ps-3 fw-bold text-dark">Show</span>
-            <a
-              class="dropdown-item d-flex align-items-center fw-bold"
-              href="#"
-              @click="limitShow(10)"
+            <a class="dropdown-item d-flex align-items-center fw-bold" href="#"
               >10
               <svg
                 class="icon icon-xxs ms-auto"
@@ -131,15 +128,8 @@
                   clip-rule="evenodd"
                 ></path></svg
             ></a>
-            <a class="dropdown-item fw-bold" href="#" @click="limitShow(20)"
-              >20</a
-            >
-            <a
-              class="dropdown-item fw-bold rounded-bottom"
-              href="#"
-              @click="limitShow(30)"
-              >30</a
-            >
+            <a class="dropdown-item fw-bold" href="#">20</a>
+            <a class="dropdown-item fw-bold rounded-bottom" href="#">30</a>
           </div>
         </div>
       </div>
@@ -147,51 +137,47 @@
   </div>
   <div class="card card-body border-0 shadow table-wrapper table-responsive">
     <div
-      v-if="data.items == null"
+      v-if="data == null"
       class="position-absolute top-50 start-50 translate-middle"
     >
-      <div class="spinner-border text-success" role="status">
-        <span class="visually-hidden">Loading...</span>
+      <div class="text-center">
+        <div class="spinner-grow text-success" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
       </div>
     </div>
     <table v-else class="table table-hover">
       <thead>
         <tr>
-          <th class="border-gray-200">COD PEDIDO</th>
-          <th class="border-gray-200">CLIENTE</th>
+          <th class="border-gray-200">ID</th>
+          <th class="border-gray-200">NOMBRE</th>
+          <th class="border-gray-200">NOMBRE USUARIO</th>
+          <th class="border-gray-200">EMAIL</th>
           <th class="border-gray-200">DIRECCION</th>
-          <th class="border-gray-200">SUCURSAL</th>
-          <th class="border-gray-200">Total</th>
-          <th class="border-gray-200">ESTADO</th>
+          <th class="border-gray-200">TEL</th>
           <th class="border-gray-200">Action</th>
         </tr>
       </thead>
       <tbody>
         <!-- Item -->
-        <tr v-for="item in data.items" :key="item">
+        <tr v-for="item in data" :key="item">
           <td>
-            <a href="#" class="fw-bold"> {{ item.cod_pedido }} </a>
-          </td>
-          <td>
-            <span class="fw-normal">{{ item.tercero }}</span>
+            <a href="#" class="fw-bold"> {{ item.id }} </a>
           </td>
           <td>
-            <span class="fw-normal">{{ item.direccion }}</span>
+            <a href="#" class="fw-bold"> {{ item.name }} </a>
           </td>
           <td>
-            <span class="fw-normal">{{ item.sucursal }}</span>
+            <a href="#" class="fw-bold"> {{ item.username }} </a>
           </td>
           <td>
-            <span class="fw-bold">$ {{ formatPrice(item.valor_bruto) }}</span>
+            <a href="#" class="fw-bold"> {{ item.email }} </a>
           </td>
-          <td v-if="item.estado == 'Prueba'">
-            <span class="badge rounded-pill bg-success">{{ item.estado }}</span>
+          <td>
+            <a href="#" class="fw-bold"> {{ item.address.street }} </a>
           </td>
-          <td v-else-if="item.estado == 'Pendiente'">
-            <span class="badge rounded-pill bg-danger">{{ item.estado }}</span>
-          </td>
-          <td v-else>
-            <span class="badge rounded-pill bg-warning">{{ item.estado }}</span>
+          <td>
+            <a href="#" class="fw-bold"> {{ item.phone }} </a>
           </td>
           <td>
             <div class="btn-group">
@@ -267,31 +253,31 @@
     >
       <nav aria-label="Page navigation example">
         <ul class="pagination mb-0">
-          <li
-            v-if="data.current > 1"
-            class="page-item"
-            @click="nexPage(data.first)"
-          >
-            <a class="page-link" href="#">{{ data.first }}</a>
-          </li>
-          <li class="page-item" @click="nexPage(data.previous)">
-            <a class="page-link" href="#"><i class="fas fa-backward"></i></a>
+          <li class="page-item">
+            <a class="page-link" href="#">Previous</a>
           </li>
           <li class="page-item">
-            <a class="page-link" href="#">{{ data.current }}</a>
+            <a class="page-link" href="#">1</a>
           </li>
-          <li class="page-item" @click="nexPage(data.next)">
-            <a class="page-link" href="#"><i class="fas fa-forward"></i></a>
+          <li class="page-item active">
+            <a class="page-link" href="#">2</a>
           </li>
           <li class="page-item">
-            <a class="page-link" href="#" @click="nexPage(data.last)">
-              {{ data.last }}
-            </a>
+            <a class="page-link" href="#">3</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">4</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">5</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
           </li>
         </ul>
       </nav>
       <div class="fw-normal small mt-4 mt-lg-0">
-        Viendo <b>{{ data.limit }}</b> de <b>{{ data.total_items }}</b> Ordenes
+        Viendo <b>10</b> de <b>10</b> Ordenes
       </div>
     </div>
   </div>
@@ -303,42 +289,18 @@ export default {
   data() {
     return {
       data: [],
-      totalPage: 0,
-      limit: 10,
-      page: 1,
     };
   },
   mounted() {
     this.FechPage();
   },
   methods: {
-    FechPage(page = this.page, val = this.limit) {
+    FechPage() {
       axios
-        .get(
-          "http://localhost:7000/orders/list?page=" + page + "&&limit=" + val,
-          {
-            headers: {
-              Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzQxMjg4ODEsImp0aSI6IlB1bWlFczB4SXVTMUhqMEFXd3FvNEgwcmthbWVFKzNxNUV2MVVJVVJCV0k9IiwiaXNzIjoiIiwiZXhwIjoxNjM0MTMyNDgxLCJkYXRhIjp7ImNvZF9wYWlzIjoiMSIsImNvZF91c2VyIjoiMyIsImNvZF9wcm9maWxlIjoiNCIsImNvZF90ZXJjZXJvIjoiMyIsImNvZF9jb21wYW55IjoiMSJ9fQ.LY8aasX8ErJ3wCWt4EXPutT6vOFm70J4SE2tGRnEAaw`,
-            },
-          }
-        )
+        .get("https://jsonplaceholder.typicode.com/users")
         .then((response) => {
-          this.data = response.data.data;
-          this.totalPage = response.data.last;
-          this.page = response.data.current;
+          this.data = response.data;
         });
-    },
-    formatPrice(value) {
-      let val = (value / 1).toFixed(2).replace(".", ",");
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    },
-    nexPage(page = null) {
-      const limi = this.limit;
-      this.FechPage(page, limi);
-    },
-    limitShow(val = null) {
-      const pag = this.page;
-      this.FechPage(pag, val);
     },
   },
 };

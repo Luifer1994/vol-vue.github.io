@@ -1,7 +1,7 @@
 <template>
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
     <div class="d-block mb-4 mb-md-0">
-        <h2 class="h4">Todas las ordenes</h2>
+        <h2 class="h4">Todas las transacciones </h2>
     </div>
     <div class="btn-toolbar mb-2 mb-md-0">
         <a href="#" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
