@@ -27,16 +27,16 @@
           </p>
 
           <a
-          class="btn btn-sm btn-gray-800 d-inline-flex align-items-center me-2"
-          href="#"
-        >
-          <i class="fas fa-mobile-alt"></i> <span class="m-1"></span> {{ item.cell }}
-        </a>
-        <a class="btn btn-sm btn-secondary" href="#"> 
-             <i class="fas fa-envelope-open-text"></i> <span class="m-1"></span> {{ item.email }}
-        </a>
+            class="btn btn-sm btn-gray-800 d-inline-flex align-items-center me-2"
+            href="#"
+          >
+            <i class="fas fa-mobile-alt"></i> <span class="m-1"></span> {{ item.cell }}
+          </a>
+          <a class="btn btn-sm btn-secondary" href="#">
+            <i class="fas fa-envelope-open-text"></i> <span class="m-1"></span>
+            {{ item.email }}
+          </a>
         </div>
-        
       </div>
     </div>
   </div>
@@ -55,9 +55,9 @@ export default {
     axios.get("https://randomuser.me/api/").then((response) => {
       this.data = response.data;
     });
-  },
+    
+  }
 };
 </script>
 
-<style>
-</style>
+<style></style>
