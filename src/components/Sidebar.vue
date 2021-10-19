@@ -109,6 +109,16 @@
             </router-link>
           </li>
           <li class="nav-item">
+            <router-link to="/libros" class="nav-link">
+              <div data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
+                <span class="sidebar-icon">
+                  <i class="fas fa-users"></i>
+                </span>
+                <span class="sidebar-text">Libros</span>
+              </div>
+            </router-link>
+          </li>
+          <li class="nav-item">
             <a
               href="#"
               class="btn btn-secondary d-flex align-items-center justify-content-center btn-upgrade-pro"
