@@ -1,12 +1,19 @@
 <template>
   <div
-    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4"
+    class="
+      d-flex
+      justify-content-between
+      flex-wrap flex-md-nowrap
+      align-items-center
+      py-4
+    "
   >
     <div class="d-block mb-4 mb-md-0">
       <h2 class="h4">Todos los usuarios</h2>
     </div>
     <div class="btn-toolbar mb-2 mb-md-0">
       <a
+        @click="showModal"
         href="#"
         class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
         data-bs-toggle="modal"
@@ -15,9 +22,6 @@
         <i class="fas fa-plus-circle"></i> <span class="p-1"></span>
         Nuevo Libro
       </a>
-      <div class="btn-group ms-2 ms-lg-3">
-        <button type="button" class="btn btn-sm btn-outline-gray-600">Exportar</button>
-      </div>
     </div>
   </div>
   <div class="table-settings mb-4">
@@ -25,23 +29,7 @@
       <div class="col col-md-6 col-lg-3 col-xl-4">
         <div class="input-group me-2 me-lg-3 fmxw-400">
           <span class="input-group-text">
-            <svg
-              class="icon icon-xs"
-              x-description="Heroicon name: solid/search"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M8 4a4 4 0 100
-                                        8 4 4 0 000-8zM2 8a6 6 0 1110.89
-                                        3.476l4.817 4.817a1 1 0 01-1.414
-                                        1.414l-4.816-4.816A6 6 0 012 8z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
+          <i class="fas fa-search"></i>
           </span>
           <input type="text" class="form-control" placeholder="Search orders" />
         </div>
@@ -49,7 +37,13 @@
       <div class="col-4 col-md-2 col-xl-1 ps-md-0 text-end">
         <div class="dropdown">
           <button
-            class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-1"
+            class="
+              btn btn-link
+              text-dark
+              dropdown-toggle dropdown-toggle-split
+              m-0
+              p-1
+            "
             data-bs-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
@@ -58,10 +52,20 @@
             <span class="visually-hidden">Toggle Dropdown</span>
           </button>
           <div class="dropdown-menu dropdown-menu-xs dropdown-menu-end pb-0">
-            <span class="small ps-3 fw-bold text-dark">Show</span>
-            <a class="dropdown-item d-flex align-items-center fw-bold" href="#">10 </a>
-            <a class="dropdown-item fw-bold" href="#">20</a>
-            <a class="dropdown-item fw-bold rounded-bottom" href="#">30</a>
+            <span class="small ps-3 fw-bold text-dark">Ver</span>
+            <a
+              @click="list(10)"
+              class="dropdown-item d-flex align-items-center fw-bold"
+              href="#"
+              >10
+            </a>
+            <a @click="list(20)" class="dropdown-item fw-bold" href="#">20</a>
+            <a
+              @click="list(30)"
+              class="dropdown-item fw-bold rounded-bottom"
+              href="#"
+              >30</a
+            >
           </div>
         </div>
       </div>
@@ -88,28 +92,39 @@
       </tbody>
     </table>
     <div
-      class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-between"
+      class="
+        card-footer
+        px-3
+        border-0
+        d-flex
+        flex-column flex-lg-row
+        align-items-center
+        justify-content-between
+      "
     >
       <nav aria-label="Page navigation example">
         <ul class="pagination mb-0 pagination-sm">
           <li class="page-item">
-              <a class="page-link" @click="nexPage(book.prev_page_url)">
-                <i class="fas fa-chevron-left"></i>
-              </a>
-            </li>
+            <a class="page-link" @click="nexPage(book.prev_page_url)">
+              <i class="fas fa-chevron-left"></i>
+            </a>
+          </li>
           <div v-for="(link, index) in links" :key="link.label">
-            <li class="page-item active" v-if="link.active && index==link.label">
+            <li
+              class="page-item active"
+              v-if="link.active && index == link.label"
+            >
               <a class="page-link" @click="nexPage(link.url)">{{ index }}</a>
             </li>
-            <li v-else-if="index==link.label" class="page-item">
-              <a class="page-link" @click="nexPage(link.url)">{{ link.label }}</a>
+            <li v-else-if="index == link.label" class="page-item">
+              <a class="page-link" @click="nexPage(link.url)">{{ index }}</a>
             </li>
           </div>
           <li class="page-item">
-              <a class="page-link" @click="nexPage(book.next_page_url)">
-                <i class="fas fa-chevron-right"></i>
-              </a>
-            </li>
+            <a class="page-link" @click="nexPage(book.next_page_url)">
+              <i class="fas fa-chevron-right"></i>
+            </a>
+          </li>
         </ul>
       </nav>
       <div class="fw-normal small mt-4 mt-lg-0">
@@ -124,6 +139,8 @@
     tabindex="-1"
     aria-labelledby="exampleModalLabel"
     aria-hidden="true"
+    v-if="openModal"
+    data-bs-backdrop="static"
   >
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -145,7 +162,7 @@
               placeholder="Nombre"
               name="name"
             />
-            <br>
+            <br />
             <input
               class="form-control"
               v-model="inputDescription"
@@ -159,7 +176,18 @@
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
             Cancelar
           </button>
-          <button @click="store" type="button" class="btn btn-info">Guardar</button>
+          <button
+            v-if="inputName && inputDescription"
+            @click="store"
+            type="button"
+            class="btn btn-info"
+            data-bs-dismiss="modal"
+          >
+            Guardar
+          </button>
+          <button v-else @click="store" type="button" class="btn btn-info">
+            Guardar
+          </button>
         </div>
       </div>
     </div>
@@ -175,7 +203,10 @@ export default {
       inputName: null,
       inputDescription: null,
       links: [],
-      url: null,
+      message: null,
+      typeMessage: null,
+      openModal: false,
+      limitPage: 10,
     };
   },
   mounted() {
@@ -187,26 +218,73 @@ export default {
       newBook.name = this.inputName;
       newBook.description = this.inputDescription;
       console.log(newBook);
-
-      axios.post("http://127.0.0.1:8000/api/books-store", newBook).then((result) => {
-        console.log(result);
-        this.inputName = null;
-        this.inputDescription = null;
-        this.list();
-      });
+      if (!newBook.name || !newBook.description) {
+        if (!newBook.name) {
+          this.message = "El nombre es requerido";
+          this.typeMessage = "error";
+          this.noty(this.message, this.typeMessage);
+        }
+        if (!newBook.description && newBook.name) {
+          this.message = "La descripcion  es requerida";
+          this.typeMessage = "error";
+          this.noty(this.message, this.typeMessage);
+        }
+      } else {
+        axios
+          .post("http://127.0.0.1:8000/api/books-store", newBook)
+          .then((result) => {
+            console.log(result.data);
+            this.message = result.data.message;
+            this.typeMessage = "info";
+            this.inputName = null;
+            this.inputDescription = null;
+            this.list();
+            this.noty(this.message, this.typeMessage);
+            this.openModal = false;
+          });
+      }
     },
-    list() {
+    list(limit = null) {
+      if (limit) {
+         this.limitPage = limit;
+      }
       axios
-        .get("http://127.0.0.1:8000/api/books-list")
-        .then((response) => (this.book = response.data.data))
-        .then((response) => (this.links = response.last_page));
-    },
-    nexPage(url) {
-      this.url = url;
-      axios
-        .get(this.url)
+        .get("http://127.0.0.1:8000/api/books-list/" + this.limitPage)
         .then((response) => (this.book = response.data.data))
         .then((response) => (this.links = response.links));
+    },
+    nexPage(url) {
+      axios
+        .get(url)
+        .then((response) => (this.book = response.data.data))
+        .then((response) => (this.links = response.links));
+    },
+    showModal() {
+      this.openModal = true;
+    },
+    noty(message, typeMessage) {
+      const notyf = new window.noty({
+        position: {
+          x: "rigth",
+          y: "top",
+        },
+        types: [
+          {
+            type: "info",
+            background: "#06AB17",
+            icon: {
+              className: "fas fa-check-double",
+              tagName: "span",
+              color: "#fff",
+            },
+            dismissible: false,
+          },
+        ],
+      });
+      notyf.open({
+        type: typeMessage,
+        message: message,
+      });
     },
   },
 };
