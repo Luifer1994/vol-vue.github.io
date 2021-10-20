@@ -314,7 +314,7 @@ export default {
             this.typeMessage = "info";
             this.inputName = null;
             this.inputDescription = null;
-            this.nexPage(this.Url);
+            this.list();
             this.noty(this.message, this.typeMessage);
             this.openModal = false;
           });
