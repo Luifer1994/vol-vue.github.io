@@ -269,6 +269,7 @@ export default {
       typeMessage: null,
       limitPage: 10,
       editing: false,
+      Url:null
     };
   },
   mounted() {
@@ -308,7 +309,7 @@ export default {
             this.typeMessage = "info";
             this.inputName = null;
             this.inputDescription = null;
-            this.list();
+            this.nexPage(this.Url);
             this.noty(this.message, this.typeMessage);
             this.openModal = false;
           });
@@ -354,7 +355,7 @@ export default {
             this.inputName = null;
             this.inputDescription = null;
             this.idBook = null;
-            this.list();
+            this.nexPage(this.Url);
             this.noty(this.message, this.typeMessage);
             this.openModal = false;
           });
@@ -373,8 +374,9 @@ export default {
         .then((response) => (this.links = response.links));
     },
     nexPage(url) {
+      this.Url = url;
       axios
-        .get(url)
+        .get(this.Url)
         .then((response) => (this.book = response.data.data))
         .then((response) => (this.links = response.links));
     },
@@ -423,7 +425,7 @@ export default {
               console.log(result.data);
               this.message = result.data.message;
               this.typeMessage = "info";
-              this.list();
+              this.nexPage(this.Url);
               this.noty(this.message, this.typeMessage);
             });
           /*  window.Swal.fire("Deleted!", "Your file has been deleted.", "success"); */
