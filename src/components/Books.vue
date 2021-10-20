@@ -88,7 +88,7 @@
           <td class="fw-bold">{{ item.id }}</td>
           <td class="fw-bold">{{ item.name }}</td>
           <td class="fw-bold">{{ item.description }}</td>
-          <td class="fw-bold">{{ item.created_at }}</td>
+          <td class="fw-bold">{{ formatDate(item.created_at)  }}</td>
           <td class="fw-bold">
             <div class="btn-group">
               <button
@@ -185,7 +185,7 @@
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Registrar Libro</h5>
           <button
-            @click="cancel" 
+            @click="cancel"
             type="button"
             class="btn-close"
             data-bs-dismiss="modal"
@@ -255,6 +255,7 @@
 </template>
 <script>
 import axios from "axios";
+import moment from "moment";
 export default {
   name: "Books",
   data() {
@@ -274,6 +275,12 @@ export default {
     this.list();
   },
   methods: {
+    formatDate(value) {
+      moment.locale('es'); 
+      if (value) {
+        return moment(String(value)).format("LL");
+      }
+    },
     store() {
       var newBook = new Object();
       newBook.name = this.inputName;
