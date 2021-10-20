@@ -104,7 +104,7 @@
                 aria-expanded="false"
               >
                 <span class="icon icon">
-                  <i class="fas fa-cog" style="font-size:20px"></i>
+                  <i class="fas fa-cog" style="font-size: 20px"></i>
                 </span>
                 <span class="visually-hidden">Toggle Dropdown</span>
               </button>
@@ -112,7 +112,11 @@
                 <a class="dropdown-item rounded-top" href="#"
                   ><span class="fas fa-eye me-2"></span>View Details</a
                 >
-                <a class="dropdown-item text-info rounded-bottom"
+                <a
+                  @click="edit(item.id, item.name, item.description)"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  class="dropdown-item text-info rounded-bottom"
                   ><span class="fas fa-edit me-2"></span>Editar</a
                 >
                 <a
@@ -174,7 +178,6 @@
     tabindex="-1"
     aria-labelledby="exampleModalLabel"
     aria-hidden="true"
-    v-if="openModal"
     data-bs-backdrop="static"
   >
     <div class="modal-dialog modal-dialog-centered">
@@ -211,18 +214,34 @@
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
             Cancelar
           </button>
-          <button
-            v-if="inputName && inputDescription"
-            @click="store"
-            type="button"
-            class="btn btn-info"
-            data-bs-dismiss="modal"
-          >
-            Guardar
-          </button>
-          <button v-else @click="store" type="button" class="btn btn-info">
-            Guardar
-          </button>
+          <div v-if="editing">
+            <button
+              v-if="inputName && inputDescription"
+              @click="updated"
+              type="button"
+              class="btn btn-info"
+              data-bs-dismiss="modal"
+            >
+              Actualizar
+            </button>
+            <button v-else @click="updated" type="button" class="btn btn-info">
+              Actualizar
+            </button>
+          </div>
+          <div v-else>
+            <button
+              v-if="inputName && inputDescription"
+              @click="store"
+              type="button"
+              class="btn btn-info"
+              data-bs-dismiss="modal"
+            >
+              Guardar
+            </button>
+            <button v-else @click="store" type="button" class="btn btn-info">
+              Guardar
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -235,13 +254,14 @@ export default {
   data() {
     return {
       book: {},
+      idBook: null,
       inputName: null,
       inputDescription: null,
       links: [],
       message: null,
       typeMessage: null,
-      openModal: false,
       limitPage: 10,
+      editing: false,
     };
   },
   mounted() {
@@ -252,7 +272,6 @@ export default {
       var newBook = new Object();
       newBook.name = this.inputName;
       newBook.description = this.inputDescription;
-      console.log(newBook);
       if (!newBook.name || !newBook.description) {
         if (!newBook.name) {
           this.message = "El nombre es requerido";
@@ -282,6 +301,46 @@ export default {
           });
       }
     },
+    edit(id, name, description) {
+      this.editing = true;
+      this.idBook = id;
+      this.inputName = name;
+      this.inputDescription = description;
+    },
+    updated() {
+      var editBook = new Object();
+      editBook.name = this.inputName;
+      editBook.description = this.inputDescription;
+      if (!editBook.name || !editBook.description) {
+        if (!editBook.name) {
+          this.message = "El nombre es requerido";
+          this.typeMessage = "error";
+          this.noty(this.message, this.typeMessage);
+        }
+        if (!editBook.description && editBook.name) {
+          this.message = "La descripcion  es requerida";
+          this.typeMessage = "error";
+          this.noty(this.message, this.typeMessage);
+        }
+      } else {
+        axios
+          .put(
+            "https://desolate-inlet-47083.herokuapp.com/api/books-update/"+this.idBook,
+            editBook
+          )
+          .then((result) => {
+            console.log(result.data);
+            this.message = result.data.message;
+            this.typeMessage = "info";
+            this.inputName = null;
+            this.inputDescription = null;
+            this.idBook = null;
+            this.list();
+            this.noty(this.message, this.typeMessage);
+            this.openModal = false;
+          });
+      }
+    },
     list(limit = null) {
       if (limit) {
         this.limitPage = limit;
@@ -299,9 +358,6 @@ export default {
         .get(url)
         .then((response) => (this.book = response.data.data))
         .then((response) => (this.links = response.links));
-    },
-    showModal() {
-      this.openModal = true;
     },
     noty(message, typeMessage) {
       const notyf = new window.noty({
