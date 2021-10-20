@@ -140,7 +140,6 @@
         src="https://vuejs.org/images/logo.svg"
         alt="Volt logo"
       />
-      <img class="navbar-brand-light" src="assets/logo.png" alt="Volt logo" />
     </a>
     <div class="d-flex align-items-center">
       <button
