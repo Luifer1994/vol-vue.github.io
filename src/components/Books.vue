@@ -71,8 +71,12 @@
       </div>
     </div>
   </div>
-
-  <div class="card card-body border-0 shadow table-wrapper table-responsive">
+   <div v-if="book == null" class="text-center">
+    <div class="spinner-grow text-success m-5" style="width: 8rem; height: 8rem;" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  <div v-else class="card card-body border-0 shadow table-wrapper table-responsive">
     <table class="table table-hover">
       <thead>
         <tr>
@@ -88,7 +92,7 @@
           <td class="fw-bold">{{ item.id }}</td>
           <td class="fw-bold">{{ item.name }}</td>
           <td class="fw-bold">{{ item.description }}</td>
-          <td class="fw-bold">{{ formatDate(item.created_at)  }}</td>
+          <td class="fw-bold">{{ formatDate(item.created_at) }}</td>
           <td class="fw-bold">
             <div class="btn-group">
               <button
@@ -260,7 +264,7 @@ export default {
   name: "Books",
   data() {
     return {
-      book: {},
+      book: null,
       idBook: null,
       inputName: null,
       inputDescription: null,
@@ -269,7 +273,7 @@ export default {
       typeMessage: null,
       limitPage: 10,
       editing: false,
-      Url:null
+      Url: null,
     };
   },
   mounted() {
@@ -277,7 +281,7 @@ export default {
   },
   methods: {
     formatDate(value) {
-      moment.locale('es'); 
+      moment.locale("es");
       if (value) {
         return moment(String(value)).format("LL");
       }
