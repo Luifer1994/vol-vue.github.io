@@ -318,7 +318,6 @@ export default {
             newBook
           )
           .then((result) => {
-            console.log(result.data);
             this.message = result.data.message;
             this.typeMessage = "info";
             this.inputName = null;
@@ -365,7 +364,6 @@ export default {
             editBook
           )
           .then((result) => {
-            console.log(result.data);
             this.message = result.data.message;
             this.typeMessage = "info";
             this.inputName = null;
@@ -442,7 +440,6 @@ export default {
                 id
             )
             .then((result) => {
-              console.log(result.data);
               this.message = result.data.message;
               this.typeMessage = "info";
               if (this.Url) {
