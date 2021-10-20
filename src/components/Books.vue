@@ -185,6 +185,7 @@
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Registrar Libro</h5>
           <button
+            @click="cancel" 
             type="button"
             class="btn-close"
             data-bs-dismiss="modal"
@@ -211,7 +212,12 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          <button
+            @click="cancel"
+            type="button"
+            class="btn btn-danger"
+            data-bs-dismiss="modal"
+          >
             Cancelar
           </button>
           <div v-if="editing">
@@ -301,6 +307,11 @@ export default {
           });
       }
     },
+    cancel() {
+      this.inputName = null;
+      this.inputDescription = null;
+      this.idBook = null;
+    },
     edit(id, name, description) {
       this.editing = true;
       this.idBook = id;
@@ -325,7 +336,8 @@ export default {
       } else {
         axios
           .put(
-            "https://desolate-inlet-47083.herokuapp.com/api/books-update/"+this.idBook,
+            "https://desolate-inlet-47083.herokuapp.com/api/books-update/" +
+              this.idBook,
             editBook
           )
           .then((result) => {
