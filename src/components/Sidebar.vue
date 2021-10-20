@@ -12,7 +12,7 @@
           <div class="d-flex align-items-center">
             <div class="avatar-lg me-4">
               <img
-                src="/public/assets/img/team/profile-picture-3.jpg"
+                src="https://www.shareicon.net/data/2016/05/26/771188_man_512x512.png"
                 class="card-img-top rounded-circle border-white"
                 alt="Bonnie Green"
               />
@@ -127,7 +127,7 @@
                 class="sidebar-icon d-inline-flex align-items-center justify-content-center"
               >
               </span>
-              <span><img style="width: 25px" src="/public/assets/logo.png" /> Vue JS</span>
+              <span><img style="width: 25px" src="https://vuejs.org/images/logo.svg" /> Vue JS</span>
             </a>
           </li>
         </ul>
