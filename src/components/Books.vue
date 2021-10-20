@@ -1,34 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@Luifer1994 
-Luifer1994
-/
-vol-vue.github.io
-Public template
-1
-00
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-Settings
-vol-vue.github.io/src/components/Books.vue
-@Luifer1994
-Luifer1994 update
-Latest commit 794ae63 3 hours ago
- History
- 1 contributor
-291 lines (290 sloc)  8.1 KB
-  
 <template>
   <div
     class="
@@ -60,7 +29,7 @@ Latest commit 794ae63 3 hours ago
       <div class="col col-md-6 col-lg-3 col-xl-4">
         <div class="input-group me-2 me-lg-3 fmxw-400">
           <span class="input-group-text">
-          <i class="fas fa-search"></i>
+            <i class="fas fa-search"></i>
           </span>
           <input type="text" class="form-control" placeholder="Search orders" />
         </div>
@@ -107,18 +76,53 @@ Latest commit 794ae63 3 hours ago
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">ID</th>
-          <th scope="col">NOMBRE</th>
-          <th scope="col">DESCRIPCION</th>
-          <th scope="col">FECHA CREACION</th>
+          <th class="border-gray-200">ID</th>
+          <th class="border-gray-200">NOMBRE</th>
+          <th class="border-gray-200">DESCRIPCION</th>
+          <th class="border-gray-200">FECHA CREACION</th>
+          <th class="border-gray-200">ACIONES</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="item in book.data" :key="item">
-          <th scope="row">{{ item.id }}</th>
-          <th>{{ item.name }}</th>
-          <th>{{ item.description }}</th>
-          <th>{{ item.created_at }}</th>
+          <td class="fw-bold">{{ item.id }}</td>
+          <td class="fw-bold">{{ item.name }}</td>
+          <td class="fw-bold">{{ item.description }}</td>
+          <td class="fw-bold">{{ item.created_at }}</td>
+          <td class="fw-bold">
+            <div class="btn-group">
+              <button
+                class="
+                  btn btn-link
+                  text-dark
+                  dropdown-toggle dropdown-toggle-split
+                  m-0
+                  p-0
+                "
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <span class="icon icon">
+                  <i class="fas fa-cog" style="font-size:20px"></i>
+                </span>
+                <span class="visually-hidden">Toggle Dropdown</span>
+              </button>
+              <div class="dropdown-menu py-0">
+                <a class="dropdown-item rounded-top" href="#"
+                  ><span class="fas fa-eye me-2"></span>View Details</a
+                >
+                <a class="dropdown-item text-info rounded-bottom"
+                  ><span class="fas fa-edit me-2"></span>Editar</a
+                >
+                <a
+                  @click="swal(item.id)"
+                  class="dropdown-item text-danger rounded-bottom"
+                  ><span class="fas fa-trash-alt me-2"></span>Eliminar</a
+                >
+              </div>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -262,7 +266,10 @@ export default {
         }
       } else {
         axios
-          .post("https://desolate-inlet-47083.herokuapp.com/api/books-store", newBook)
+          .post(
+            "https://desolate-inlet-47083.herokuapp.com/api/books-store",
+            newBook
+          )
           .then((result) => {
             console.log(result.data);
             this.message = result.data.message;
@@ -277,10 +284,13 @@ export default {
     },
     list(limit = null) {
       if (limit) {
-         this.limitPage = limit;
+        this.limitPage = limit;
       }
       axios
-        .get("https://desolate-inlet-47083.herokuapp.com/api/books-list/" + this.limitPage)
+        .get(
+          "https://desolate-inlet-47083.herokuapp.com/api/books-list/" +
+            this.limitPage
+        )
         .then((response) => (this.book = response.data.data))
         .then((response) => (this.links = response.links));
     },
@@ -317,18 +327,34 @@ export default {
         message: message,
       });
     },
+    swal(id) {
+      window.Swal.fire({
+        title: "¿Estas seguro?",
+        text: "Despues de elminado ni podras recuperarlo!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, Borrar!",
+        cancelButtonText: "Cancelar",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios
+            .delete(
+              "https://desolate-inlet-47083.herokuapp.com/api/books-delete/" +
+                id
+            )
+            .then((result) => {
+              console.log(result.data);
+              this.message = result.data.message;
+              this.typeMessage = "info";
+              this.list();
+              this.noty(this.message, this.typeMessage);
+            });
+          /*  window.Swal.fire("Deleted!", "Your file has been deleted.", "success"); */
+        }
+      });
+    },
   },
 };
 </script>
-© 2021 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
