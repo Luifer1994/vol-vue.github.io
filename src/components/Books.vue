@@ -71,12 +71,19 @@
       </div>
     </div>
   </div>
-   <div v-if="book == null" class="text-center">
-    <div class="spinner-grow text-success m-5" style="width: 8rem; height: 8rem;" role="status">
+  <div v-if="book == null" class="text-center">
+    <div
+      class="spinner-grow text-success m-5"
+      style="width: 8rem; height: 8rem"
+      role="status"
+    >
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
-  <div v-else class="card card-body border-0 shadow table-wrapper table-responsive">
+  <div
+    v-else
+    class="card card-body border-0 shadow table-wrapper table-responsive"
+  >
     <table class="table table-hover">
       <thead>
         <tr>
@@ -187,7 +194,9 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">{{ titleModal }} Libro</h5>
+          <h5 class="modal-title" id="exampleModalLabel">
+            {{ titleModal }} Libro
+          </h5>
           <button
             @click="cancel"
             type="button"
@@ -274,7 +283,7 @@ export default {
       limitPage: 10,
       editing: false,
       Url: null,
-      titleModal: "Registrar"
+      titleModal: "Registrar",
     };
   },
   mounted() {
@@ -314,7 +323,7 @@ export default {
             this.typeMessage = "info";
             this.inputName = null;
             this.inputDescription = null;
-            this.list();
+            this.list(this.limitPage);
             this.noty(this.message, this.typeMessage);
             this.openModal = false;
           });
@@ -362,7 +371,11 @@ export default {
             this.inputName = null;
             this.inputDescription = null;
             this.idBook = null;
-            this.nexPage(this.Url);
+            if (this.Url) {
+              this.nexPage(this.Url);
+            } else {
+              this.list();
+            }
             this.noty(this.message, this.typeMessage);
             this.openModal = false;
           });
@@ -432,7 +445,11 @@ export default {
               console.log(result.data);
               this.message = result.data.message;
               this.typeMessage = "info";
-              this.nexPage(this.Url);
+              if (this.Url) {
+                this.nexPage(this.Url);
+              } else {
+                this.list();
+              }
               this.noty(this.message, this.typeMessage);
             });
           /*  window.Swal.fire("Deleted!", "Your file has been deleted.", "success"); */
