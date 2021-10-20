@@ -9,7 +9,7 @@
     "
   >
     <div class="d-block mb-4 mb-md-0">
-      <h2 class="h4">Todos los usuarios</h2>
+      <h2 class="h4">Todos los libros</h2>
     </div>
     <div class="btn-toolbar mb-2 mb-md-0">
       <a
