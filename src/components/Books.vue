@@ -187,7 +187,7 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Registrar Libro</h5>
+          <h5 class="modal-title" id="exampleModalLabel">{{ titleModal }} Libro</h5>
           <button
             @click="cancel"
             type="button"
@@ -274,6 +274,7 @@ export default {
       limitPage: 10,
       editing: false,
       Url: null,
+      titleModal: "Registrar"
     };
   },
   mounted() {
@@ -320,11 +321,13 @@ export default {
       }
     },
     cancel() {
+      this.titleModal = "Registrar";
       this.inputName = null;
       this.inputDescription = null;
       this.idBook = null;
     },
     edit(id, name, description) {
+      this.titleModal = "Editar";
       this.editing = true;
       this.idBook = id;
       this.inputName = name;
