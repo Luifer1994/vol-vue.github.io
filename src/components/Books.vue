@@ -1,3 +1,34 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@Luifer1994 
+Luifer1994
+/
+vol-vue.github.io
+Public template
+1
+00
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+vol-vue.github.io/src/components/Books.vue
+@Luifer1994
+Luifer1994 update
+Latest commit 794ae63 3 hours ago
+ History
+ 1 contributor
+291 lines (290 sloc)  8.1 KB
+  
 <template>
   <div
     class="
@@ -29,23 +60,7 @@
       <div class="col col-md-6 col-lg-3 col-xl-4">
         <div class="input-group me-2 me-lg-3 fmxw-400">
           <span class="input-group-text">
-            <svg
-              class="icon icon-xs"
-              x-description="Heroicon name: solid/search"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M8 4a4 4 0 100
-                                        8 4 4 0 000-8zM2 8a6 6 0 1110.89
-                                        3.476l4.817 4.817a1 1 0 01-1.414
-                                        1.414l-4.816-4.816A6 6 0 012 8z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
+          <i class="fas fa-search"></i>
           </span>
           <input type="text" class="form-control" placeholder="Search orders" />
         </div>
@@ -68,12 +83,20 @@
             <span class="visually-hidden">Toggle Dropdown</span>
           </button>
           <div class="dropdown-menu dropdown-menu-xs dropdown-menu-end pb-0">
-            <span class="small ps-3 fw-bold text-dark">Show</span>
-            <a class="dropdown-item d-flex align-items-center fw-bold" href="#"
+            <span class="small ps-3 fw-bold text-dark">Ver</span>
+            <a
+              @click="list(10)"
+              class="dropdown-item d-flex align-items-center fw-bold"
+              href="#"
               >10
             </a>
-            <a class="dropdown-item fw-bold" href="#">20</a>
-            <a class="dropdown-item fw-bold rounded-bottom" href="#">30</a>
+            <a @click="list(20)" class="dropdown-item fw-bold" href="#">20</a>
+            <a
+              @click="list(30)"
+              class="dropdown-item fw-bold rounded-bottom"
+              href="#"
+              >30</a
+            >
           </div>
         </div>
       </div>
@@ -148,6 +171,7 @@
     aria-labelledby="exampleModalLabel"
     aria-hidden="true"
     v-if="openModal"
+    data-bs-backdrop="static"
   >
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -183,7 +207,13 @@
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
             Cancelar
           </button>
-          <button v-if="inputName && inputDescription" @click="store" type="button" class="btn btn-info" data-bs-dismiss="modal">
+          <button
+            v-if="inputName && inputDescription"
+            @click="store"
+            type="button"
+            class="btn btn-info"
+            data-bs-dismiss="modal"
+          >
             Guardar
           </button>
           <button v-else @click="store" type="button" class="btn btn-info">
@@ -207,6 +237,7 @@ export default {
       message: null,
       typeMessage: null,
       openModal: false,
+      limitPage: 10,
     };
   },
   mounted() {
@@ -244,11 +275,14 @@ export default {
           });
       }
     },
-    list() {
+    list(limit = null) {
+      if (limit) {
+         this.limitPage = limit;
+      }
       axios
-        .get("https://desolate-inlet-47083.herokuapp.com/api/books-list")
+        .get("https://desolate-inlet-47083.herokuapp.com/api/books-list/" + this.limitPage)
         .then((response) => (this.book = response.data.data))
-        .then((response) => (this.links = response.links))
+        .then((response) => (this.links = response.links));
     },
     nexPage(url) {
       axios
@@ -286,3 +320,15 @@ export default {
   },
 };
 </script>
+© 2021 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About

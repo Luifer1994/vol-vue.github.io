@@ -21,7 +21,7 @@
                   <img
                     class="avatar rounded-circle"
                     alt="Image placeholder"
-                    src="/public/assets/img/team/profile-picture-1.jpg"
+                    src="https://www.shareicon.net/data/2016/05/26/771188_man_512x512.png"
                   />
                   <div
                     class="media-body ms-2 text-dark align-items-center d-none d-lg-block"
