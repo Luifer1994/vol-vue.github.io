@@ -231,7 +231,7 @@ export default {
         }
       } else {
         axios
-          .post("http://127.0.0.1:8000/api/books-store", newBook)
+          .post("https://desolate-inlet-47083.herokuapp.com/api/books-store", newBook)
           .then((result) => {
             console.log(result.data);
             this.message = result.data.message;
@@ -246,7 +246,7 @@ export default {
     },
     list() {
       axios
-        .get("http://127.0.0.1:8000/api/books-list")
+        .get("https://desolate-inlet-47083.herokuapp.com/api/books-list")
         .then((response) => (this.book = response.data.data))
         .then((response) => (this.links = response.links))
     },
