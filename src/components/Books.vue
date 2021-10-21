@@ -314,7 +314,7 @@ export default {
       } else {
         axios
           .post(
-            "https://desolate-inlet-47083.herokuapp.com/api/books-store",
+            "https://miapi.live/public/api/books-store",
             newBook
           )
           .then((result) => {
@@ -359,7 +359,7 @@ export default {
       } else {
         axios
           .put(
-            "https://desolate-inlet-47083.herokuapp.com/api/books-update/" +
+            "https://miapi.live/public/api/books-update/" +
               this.idBook,
             editBook
           )
@@ -385,7 +385,7 @@ export default {
       }
       axios
         .get(
-          "https://desolate-inlet-47083.herokuapp.com/api/books-list/" +
+          "https://miapi.live/public/api/books-list/" +
             this.limitPage
         )
         .then((response) => (this.book = response.data.data))
@@ -436,7 +436,7 @@ export default {
         if (result.isConfirmed) {
           axios
             .delete(
-              "https://desolate-inlet-47083.herokuapp.com/api/books-delete/" +
+              "https://miapi.live/public/api/books-delete/" +
                 id
             )
             .then((result) => {

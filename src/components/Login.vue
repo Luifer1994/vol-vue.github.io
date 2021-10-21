@@ -15,7 +15,6 @@
             <div class="text-center text-md-center mb-4 mt-md-0">
               <h1 class="mb-0 h4">Iniciar sesión</h1>
             </div>
-            <form class="mt-4">
               <!-- Form -->
               <div class="form-group mb-4">
                 <label for="email">Email</label>
@@ -80,7 +79,6 @@
               <div class="d-grid">
                 <button @click="login" class="btn btn-gray-800">Login</button>
               </div>
-            </form>
             <div class="d-flex justify-content-center my-4">
               <a
                 href="#"
@@ -135,7 +133,7 @@ export default {
       dataUser.email = this.userEmail;
       dataUser.password = this.userPassword;
       console.log(dataUser);
-      axios.post("https://desolate-inlet-47083.herokuapp.com/api/login", dataUser).then((result) => {
+      axios.post("https://miapi.live/public/api/login", dataUser).then((result) => {
         console.log(result);
         if (!result.data.res) {
           this.message = result.data.message;
@@ -145,6 +143,7 @@ export default {
           this.noty(this.message, "info");
           localStorage.token = result.data.token;
           this.$router.push("/");
+          window.$("#myModal").modal("toggle");
         }
       });
     },
