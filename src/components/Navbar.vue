@@ -1,12 +1,19 @@
 <template>
   <div class="">
     <nav
-      class="navbar navbar-top navbar-expand navbar-dashboard navbar-dark ps-0 pe-2 pb-0"
+      class="
+        navbar navbar-top navbar-expand navbar-dashboard navbar-dark
+        ps-0
+        pe-2
+        pb-0
+      "
     >
       <div class="container-fluid px-0">
-        <div class="d-flex justify-content-between w-100" id="navbarSupportedContent">
-          <div class="d-flex align-items-center">
-          </div>
+        <div
+          class="d-flex justify-content-between w-100"
+          id="navbarSupportedContent"
+        >
+          <div class="d-flex align-items-center"></div>
           <!-- Navbar links -->
           <ul class="navbar-nav align-items-center">
             <li class="nav-item dropdown ms-lg-3">
@@ -24,7 +31,13 @@
                     src="https://www.shareicon.net/data/2016/05/26/771188_man_512x512.png"
                   />
                   <div
-                    class="media-body ms-2 text-dark align-items-center d-none d-lg-block"
+                    class="
+                      media-body
+                      ms-2
+                      text-dark
+                      align-items-center
+                      d-none d-lg-block
+                    "
                   >
                     <span class="mb-0 font-small fw-bold text-gray-900"
                       >Bonnie Green</span
@@ -32,7 +45,15 @@
                   </div>
                 </div>
               </a>
-              <div class="dropdown-menu dashboard-dropdown dropdown-menu-end mt-2 py-1">
+              <div
+                class="
+                  dropdown-menu
+                  dashboard-dropdown
+                  dropdown-menu-end
+                  mt-2
+                  py-1
+                "
+              >
                 <router-link
                   to="/perfil"
                   class="dropdown-item d-flex align-items-center"
@@ -59,7 +80,7 @@
                   My Profile
                 </router-link>
                 <div role="separator" class="dropdown-divider my-1"></div>
-                <a class="dropdown-item d-flex align-items-center" href="#">
+                <a @click="logout" class="dropdown-item d-flex align-items-center">
                   <svg
                     class="dropdown-icon text-danger me-2"
                     fill="none"
@@ -91,5 +112,13 @@
 <script>
 export default {
   name: "Navbar",
+  methods: {
+    logout() {
+      if (localStorage.getItem("token")) {
+        localStorage.removeItem("token");
+      }
+      this.$router.push('/login')
+    },
+  },
 };
 </script>

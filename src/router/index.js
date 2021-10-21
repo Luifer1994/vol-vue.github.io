@@ -30,6 +30,12 @@ const routes = [{
         name: 'Libros',
         component: () =>
             import ( /* webpackChunkName: "about" */ '../components/Books.vue')
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        component: () =>
+            import ( /* webpackChunkName: "about" */ '../components/Login.vue')
     }
 ]
 
@@ -37,5 +43,24 @@ const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes
 })
+
+function existToken() {
+    if (localStorage.getItem('token')) {
+        return true;
+    }
+}
+
+router.beforeEach((to, from, next) => {
+    var isLogin = existToken();
+    if (isLogin) {
+        next()
+    } else {
+        if (to.name === 'Login') {
+            next()
+        } else {
+            next('login')
+        }
+    }
+});
 
 export default router
