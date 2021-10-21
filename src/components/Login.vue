@@ -135,7 +135,7 @@ export default {
       dataUser.email = this.userEmail;
       dataUser.password = this.userPassword;
       console.log(dataUser);
-      axios.post("http://127.0.0.1:8000/api/login", dataUser).then((result) => {
+      axios.post("https://desolate-inlet-47083.herokuapp.com/api/login", dataUser).then((result) => {
         console.log(result);
         if (!result.data.res) {
           this.message = result.data.message;
