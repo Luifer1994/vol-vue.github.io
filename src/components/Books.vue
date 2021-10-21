@@ -284,6 +284,7 @@ export default {
       editing: false,
       Url: null,
       titleModal: "Registrar",
+      token : localStorage.getItem('token')
     };
   },
   mounted() {
@@ -315,7 +316,7 @@ export default {
         axios
           .post(
             "https://miapi.live/public/api/books-store",
-            newBook
+            newBook, { headers: { Authorization: `Bearer ${this.token}` } }
           )
           .then((result) => {
             this.message = result.data.message;
@@ -361,7 +362,7 @@ export default {
           .put(
             "https://miapi.live/public/api/books-update/" +
               this.idBook,
-            editBook
+            editBook, { headers: { Authorization: `Bearer ${this.token}` } }
           )
           .then((result) => {
             this.message = result.data.message;
@@ -386,7 +387,7 @@ export default {
       axios
         .get(
           "https://miapi.live/public/api/books-list/" +
-            this.limitPage
+            this.limitPage, { headers: { Authorization: `Bearer ${this.token}` } }
         )
         .then((response) => (this.book = response.data.data))
         .then((response) => (this.links = response.links));
@@ -437,7 +438,7 @@ export default {
           axios
             .delete(
               "https://miapi.live/public/api/books-delete/" +
-                id
+                id, { headers: { Authorization: `Bearer ${this.token}` } }
             )
             .then((result) => {
               this.message = result.data.message;
